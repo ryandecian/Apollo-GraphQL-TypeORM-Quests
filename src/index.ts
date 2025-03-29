@@ -25,6 +25,24 @@ const cartoons = [
     },
   ];
 
+const User = [
+  {
+    id : 1,
+    name : "Jean",
+    age : 25,
+  },
+  {
+    id : 2,
+    name : "Pierre",
+    age : 30,
+  },
+  {
+    id : 3,
+    name : "Paul",
+    age : 35,
+  }
+]
+
 // A schema is a collection of type definitions (hence "typeDefs")
 
 const typeDefs = `#graphql
@@ -35,18 +53,27 @@ const typeDefs = `#graphql
     description: String
     couille: String
   }
+  
+  type User {
+    id: ID
+    name: String
+    age: Int
+    }
 
   # The "Query" type is special: it lists all of the available queries
   type Query {
     getCartoons: [Cartoon]
-    getOneCartoonById: Cartoon
+    getOneCartoonById: [Cartoon]
+    getUsers: [User]
   }
 `;
 
 // This resolver retrieves books from the "books" array above.
 const resolvers = {
     Query: {
-      getCartoons: () => cartoons, getOneCartoonById,
+      getCartoons: () => cartoons, 
+      getOneCartoonById,
+      getUsers: () => User,
     },
   };
 
