@@ -5,6 +5,7 @@ import { getOneCartoonById } from "./resolvers/cartoon.resolver";
 
 import { PersonnageSchema } from "./schemas/personnages.schema";
 import { CartoonsSchema } from "./schemas/cartoons.schema";
+import { CartoonSchema } from "./schemas/Cartoon.schema";
 
 const cartoons = [
     {
@@ -53,18 +54,7 @@ const typeDefs = `#graphql
 
   type Personnage ${PersonnageSchema}
 
-  type Cartoon {
-    id: ID
-    name: String
-    description: String
-    nb_of_episodes: Int
-    nb_of_seasons: Int
-    genres: [String]
-    realisator: String
-    author: String
-    ft_diffusion: String
-    personnages: [Personnage]
-  }
+  type Cartoon ${CartoonSchema}
   
   type User {
     id: ID
