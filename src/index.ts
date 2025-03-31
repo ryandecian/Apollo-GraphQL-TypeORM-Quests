@@ -47,11 +47,31 @@ const User = [
 
 const typeDefs = `#graphql
   # This "Cartoon" type defines the queryable fields for every cartoon in our data source.
-  type Cartoon {
+  type Cartoons {
     id: ID
     name: String
     description: String
     couille: String
+  }
+
+  type Personnage {
+    id: ID
+    name: String
+    role: String
+    short_description: String
+  }
+
+  type Cartoon {
+    id: ID
+    name: String
+    description: String
+    nb_of_episodes: Int
+    nb_of_seasons: Int
+    genres: [String]
+    realisator: String
+    author: String
+    ft_diffusion: String
+    personnages: [Personnage]
   }
   
   type User {
@@ -62,8 +82,8 @@ const typeDefs = `#graphql
 
   # The "Query" type is special: it lists all of the available queries
   type Query {
-    getCartoons: [Cartoon]
-    getOneCartoonById: [Cartoon]
+    getCartoons: [Cartoons]
+    getOneCartoonById (id: ID): Cartoon
     getUsers: [User]
   }
 `;
