@@ -1,4 +1,4 @@
-const PersonnageSchema = `{
+export const PersonnageSchema = `{
     id: ID
     name: String
     role: String

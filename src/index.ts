@@ -3,6 +3,9 @@ import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { getOneCartoonById } from "./resolvers/cartoon.resolver";
 
+import { PersonnageSchema } from "./schemas/personnages.schema";
+import { CartoonsSchema } from "./schemas/cartoons.schema";
+
 const cartoons = [
     {
       id: 1,
@@ -46,20 +49,9 @@ const User = [
 // A schema is a collection of type definitions (hence "typeDefs")
 
 const typeDefs = `#graphql
-  # This "Cartoon" type defines the queryable fields for every cartoon in our data source.
-  type Cartoons {
-    id: ID
-    name: String
-    description: String
-    couille: String
-  }
+  type Cartoons ${CartoonsSchema}
 
-  type Personnage {
-    id: ID
-    name: String
-    role: String
-    short_description: String
-  }
+  type Personnage ${PersonnageSchema}
 
   type Cartoon {
     id: ID
