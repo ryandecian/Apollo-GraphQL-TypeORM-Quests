@@ -5,9 +5,10 @@ import { getOneCartoonById } from "./resolvers/cartoon.resolver";
 
 import { PersonnageSchema, PersonnageInput } from "./schemas/personnages.schema";
 import { CartoonsSchema } from "./schemas/cartoons.schema";
-import { CartoonSchema } from "./schemas/Cartoon.schema";
+import { CartoonSchema, CartoonInput } from "./schemas/Cartoon.schema";
+import { createCartoon } from "./resolvers/cartoon.resolver";
 
-const cartoons = [
+const fakeDataCartoons = [
     {
       id: 1,
       couille: "couille",
@@ -29,7 +30,7 @@ const cartoons = [
     },
   ];
 
-const User = [
+const UserData = [
   {
     id : 1,
     name : "Jean",
@@ -53,31 +54,38 @@ const typeDefs = `#graphql
   type Cartoons ${CartoonsSchema}
 
   type Personnage ${PersonnageSchema}
+  input PersonnageInput ${PersonnageInput}
 
   type Cartoon ${CartoonSchema}
-
-  input PersonnageInput ${PersonnageInput}
+  input CartoonInput ${CartoonInput}
   
-  type User {
+  type UserType {
     id: ID
     name: String
     age: Int
     }
 
-  # The "Query" type is special: it lists all of the available queries
   type Query {
     getCartoons: [Cartoons]
     getOneCartoonById (id: ID): Cartoon
-    getUsers: [User]
+    getUsers: [UserType]
+  }
+
+  type Mutation {
+    createCartoon (NewCartoon: CartoonInput): Cartoon
+
   }
 `;
 
 // This resolver retrieves books from the "books" array above.
 const resolvers = {
     Query: {
-      getCartoons: () => cartoons, 
+      getCartoons: () => fakeDataCartoons, 
       getOneCartoonById,
-      getUsers: () => User,
+      getUsers: () => UserData,
+    },
+    Mutation: {
+      createCartoon,
     },
   };
 
