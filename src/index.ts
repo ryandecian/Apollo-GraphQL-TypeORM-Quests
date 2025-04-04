@@ -13,6 +13,14 @@ import { DataSource } from "typeorm";
 import { CartoonClass } from "./entities/Cartoon.entity";
 import { PersonnageClass } from "./entities/Personnage.entity";
 
+export const AppDataSource = new DataSource({
+  type: "sqlite",
+  database: "src/database/cartoonsDatabase.sqlite",
+  synchronize: true,
+  logging: false,
+  entities: [CartoonClass, PersonnageClass],
+});
+
 const fakeDataCartoons = [
     {
       id: 1,
@@ -94,18 +102,23 @@ const resolvers = {
     },
   };
 
-// The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-});
-
-/** Fonction auto appellée (évite la mise en constante) permettant de lancer le serveur */
+// Fonction auto-appelée qui initialise la DB puis démarre le serveur
 (async () => {
-  const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
-  });
+  try {
+    await AppDataSource.initialize();
+    console.log("📦 Base SQLite connectée !");
 
-  console.log(`🚀  Server ready at: ${url}`);
+    const server = new ApolloServer({
+      typeDefs,
+      resolvers,
+    });
+
+    const { url } = await startStandaloneServer(server, {
+      listen: { port: 4000 },
+    });
+
+    console.log(`🚀 Serveur Apollo prêt sur: ${url}`);
+  } catch (error) {
+    console.error("❌ Echec au démarrage :", error);
+  }
 })();
