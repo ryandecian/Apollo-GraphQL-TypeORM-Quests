@@ -8,6 +8,11 @@ import { CartoonsSchema } from "./schemas/cartoons.schema";
 import { CartoonSchema, CartoonInput } from "./schemas/Cartoon.schema";
 import { createCartoon } from "./resolvers/cartoon.resolver";
 
+import "reflect-metadata";
+import { DataSource } from "typeorm";
+import { CartoonClass } from "./entities/Cartoon.entity";
+import { PersonnageClass } from "./entities/Personnage.entity";
+
 const fakeDataCartoons = [
     {
       id: 1,
