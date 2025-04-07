@@ -31,7 +31,7 @@ export class CartoonClass extends BaseEntity {
     ft_diffusion: Date;
 
     @OneToMany(() => PersonnageClass, (personnage) => personnage.cartoon, {
-        cascade: true, // permet de sauvegarder les personnages en même temps que le cartoon
+        cascade: true, // permet de sauvegarder ou supprimer les personnages en même temps que le cartoon
       })
       personnages: PersonnageClass[];
 }
